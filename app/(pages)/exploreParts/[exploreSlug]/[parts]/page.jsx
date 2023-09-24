@@ -94,11 +94,11 @@ const Chassis = ({ params }) => {
   );
 
   const mainArrayData = arrayData.slice(0,1)
-  // console.log("array data is : ", arrayData);
+  console.log("array data is : ", arrayData);
   
 
   const srcArray = mainArrayData.map((item) => item.ListOfHrefs).flat();
-  console.log("ListOfHrefs is : ", srcArray);
+  // console.log("ListOfHrefs is : ", srcArray);
 
   // returning href function
   const gettingHref = (partsGroup, srcArray) => {
@@ -106,13 +106,13 @@ const Chassis = ({ params }) => {
       const firstPartWord = item.desc.split(" ")[1];
       return firstPartWord;
     });
-    console.log("Parts First Words are : ", partsFirst);
+    // console.log("Parts First Words are : ", partsFirst);
 
     const srcArrayFirst = srcArray.map((item) => {
       const firstSrcArrayWord = item.h1Tag.split(" ")[1];
       return firstSrcArrayWord;
     });
-    console.log("srcArrayFirst First Words are : ", srcArrayFirst);
+    // console.log("srcArrayFirst First Words are : ", srcArrayFirst);
 
     if (partsFirst === srcArrayFirst) return h1Tag;
   };
@@ -131,7 +131,7 @@ const Chassis = ({ params }) => {
       // return data.h1Tag;
       return letter === descItem;
     });
-    console.log("h1Tag is : ", gettingLetter ? gettingLetter.h1Tag : null);
+    // console.log("h1Tag is : ", gettingLetter ? gettingLetter.h1Tag : null);
 
     return gettingLetter ? gettingLetter.h1Tag : null;
   };

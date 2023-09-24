@@ -6,6 +6,9 @@ import HeadBar from "@/components/HeadBar";
 import Footer from "@/components/Footer";
 import RecoilWrapper from "@/components/RecoilWrapper";
 
+// other imports
+import { Toaster } from 'react-hot-toast';
+
 const inter = Outfit({ subsets: ["latin"] });
 
 export const metadata = {
@@ -18,6 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <RecoilWrapper>
+          <Toaster />
           <HeadBar />
           {children}
           <Footer />

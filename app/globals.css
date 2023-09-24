@@ -25,3 +25,27 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+/* scrollbar.css */
+/* Width and Height of the scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 8px;
+}
+
+/* Track (the area behind the thumb) */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3); /* Adjust the opacity as needed */
+  border-radius: 4px;
+}
+
+/* On hover, the thumb color */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3); /* Adjust the opacity as needed */
+}
