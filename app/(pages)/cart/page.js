@@ -1,8 +1,16 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
+
+// other imports
 import { useRecoilState } from "recoil";
+
+// local imports
 import { cartState } from "@/atoms/cartState";
+// import axios from "axios";
+
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
 
 const Cart = () => {
   const [cartItem, setCartItem] = useRecoilState(cartState);
@@ -43,6 +51,8 @@ const Cart = () => {
 
   // Console log the total sum value
   console.log(`Total Sum Value: ${totalSum}`);
+
+  // stripe checkout function
 
   return (
     <div className="w-full min-h-screen h-auto">
@@ -97,7 +107,7 @@ const Cart = () => {
                 ))}
               </tbody>
             </table>
-            <div className="mt-4 text-right mr-10 lg:text-3xl md:text-2xl text-xl">
+            <div className="mt-4 text-center lg:text-3xl md:text-2xl text-xl">
               <strong>
                 <span className="text-yellow-500">Total</span> :{" "}
                 <span className="text-yellow-500">$</span> {totalSum.toFixed(2)}
@@ -107,11 +117,17 @@ const Cart = () => {
         )}
       </div>
 
-      <div className="w-full h-auto flex justify-center items-center my-10">
-        <button className="bg-yellow-500 text-white lg:px-6 px-  lg:py-3 py-2 rounded-lg hover:bg-yellow-600 hover:scale-110 hover:duration-300 ">
-          Checkout
-        </button>
-      </div>
+      {totalSum !== 0 && (
+        <div className="w-full h-auto flex justify-center items-center my-10">
+          <button
+            className="bg-yellow-500 text-white lg:px-6 px-  lg:py-3 py-2 rounded-lg hover:bg-yellow-600 hover:scale-110 hover:duration-300 "
+
+            // onClick={handleCheckout}
+          >
+            Checkout
+          </button>
+        </div>
+      )}
     </div>
   );
 };
