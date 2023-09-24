@@ -6,14 +6,25 @@ import React, { useMemo } from "react";
 import { usePathname } from "next/navigation";
 
 // local imports
-import { hondaAllPartsData, allHondaDataArray } from "@/public/utils/allPartsData";
-import { allDataForInfiniti, infinitiNPN } from "@/public/utils/allInfinitiData";
+// import {
+//   hondaAllPartsData,
+//   allHondaDataArray,
+// } from "@/public/utils/allPartsData";
+// import {
+//   allDataForInfiniti,
+//   infinitiNPN,
+// } from "@/public/utils/allInfinitiData";
+import { toyotaNPN } from "@/public/utils/toyotaNPN";
+
 
 const Parts = ({ params }) => {
   const pathname = usePathname();
   // const router = useRouter();
-  const paramsPath =
-    decodeURIComponent(params.schemaItems).replace(/%20/g, " ");
+  const paramsPath = decodeURIComponent(params.schemaItems).replace(
+    /%20/g,
+    " "
+  );
+  console.log(params);
 
   const subSubCateg =
     decodeURIComponent(params.parts).replace(/%20/g, " ") + " ";
@@ -29,37 +40,35 @@ const Parts = ({ params }) => {
 
   const lastCat = subSubCateg;
 
-
-
   const filterAllPartsData = useMemo(() => {
     let allPartsArray;
     switch (mainCategory) {
       case "Toyota":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       case "Suzuki":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       case "Lexus":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       case "Mitsubishi":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       case "Honda":
-        allPartsArray = allHondaDataArray;
+        allPartsArray = toyotaNPN;
         break;
       case "Mazda":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       case "Nissan":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       case "Subaru":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       case "Infiniti":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       // Add cases for other categories as needed
       default:
@@ -68,23 +77,25 @@ const Parts = ({ params }) => {
     return allPartsArray;
   }, [mainCategory]);
 
+  console.log("Main Data is :", filterAllPartsData);
   const arrayData = filterAllPartsData.filter(
     (item) => item.Frames === lastCat
   );
-  // console.log("last array data is : ", filterAllPartsData);
+  // console.log("last array data is : ", arrayData);
 
   const srcArray = arrayData.map((item) => item.ListOfHrefs).flat();
   // console.log("ListOfHrefs is : ", srcArray);
-
+  
   const cardsData = srcArray.filter((item) => item.h1Tag === paramsPath);
-  // console.log("paramsPath are: '", paramsPath, "'");
+  console.log("Cards Data is : ", cardsData);
+  console.log("paramsPath are: '", paramsPath, "'");
 
   // const cards = cardsData.map((item) => item.cards);
 
   return (
     <>
       {/* main container */}
-      <div className="flex flex-col lg:px-32 md:px-12 px-4 text-center justify-center">
+      <div className="w-full min-h-screen h-auto flex flex-col lg:px-32 md:px-12 px-4 text-center justify-center">
         {/* heading */}
         <h1 className="lg:text-4xl text-2xl font-semibold text-yellow-500 py-6">
           Choose schema for
@@ -116,8 +127,8 @@ const Parts = ({ params }) => {
                             src={data.ImageLink}
                             alt={data.Alt}
                             // width={160}
-                            height={100}
-                            className="object-contain rounded-md lg:w-56 md:w-44 w-40"
+                            // height={100}
+                            className="object-contain rounded-md lg:w-52 md:w-44 w-40 h-40"
                           />
                           <span className="lg:text-sm text-xs">{data.Alt}</span>
                         </Link>

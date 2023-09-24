@@ -54,11 +54,6 @@ const ExploreSlug = ({ params }) => {
     }, 4000);
   }, []);
 
-  // const exploreSlug = decodeURIComponent(params.exploreSlug).replace(
-  //   /%20/g,
-  //   " "
-  // );
-
   const filteredCarArray = useMemo(() => {
     // Select the appropriate car array based on mainCategory
     let carArray;

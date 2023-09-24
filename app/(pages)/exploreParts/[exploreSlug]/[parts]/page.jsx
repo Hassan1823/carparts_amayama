@@ -5,11 +5,13 @@ import React, { useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 // local imports
-import {
-  hondaAllPartsData,
-  allHondaDataArray,
-} from "@/public/utils/allPartsData";
-import { allDataForInfiniti, infinitiNPN } from "@/public/utils/allInfinitiData";
+// import { infinitiNPN } from "@/public/utils/allInfinitiData";
+// import { lexusNPN } from "@/public/utils/lexusNPN";
+// import { mazdaNPN } from "@/public/utils/mazdaNPN";
+// import { nissanNPN } from "@/public/utils/nissanNPN";
+// import { subaruNPN } from "@/public/utils/subaruNPN";
+import { toyotaNPN } from "@/public/utils/toyotaNPN";
+// import { suzukiNPN } from "@/public/utils/suzukiNPN";
 
 const partsGroup = [
   {
@@ -42,37 +44,37 @@ const Chassis = ({ params }) => {
 
   const lastCat = subSubCateg;
 
-  // console.log("Last Category is : ", lastCat);
+  // console.log("Frames is : ", lastCat);
 
   const filterAllPartsData = useMemo(() => {
     let allPartsArray;
     switch (mainCategory) {
       case "Toyota":
-        allPartsArray = allDataForInfiniti;
+        allPartsArray = toyotaNPN;
         break;
       case "Suzuki":
-        allPartsArray = allDataForInfiniti;
+        allPartsArray = toyotaNPN;
         break;
       case "Lexus":
-        allPartsArray = allDataForInfiniti;
+        allPartsArray = toyotaNPN;
         break;
       case "Mitsubishi":
-        allPartsArray = allDataForInfiniti;
+        allPartsArray = toyotaNPN;
         break;
       case "Honda":
-        allPartsArray = allHondaDataArray;
+        allPartsArray = toyotaNPN;
         break;
       case "Mazda":
-        allPartsArray = allDataForInfiniti;
+        allPartsArray = toyotaNPN;
         break;
       case "Nissan":
-        allPartsArray = allDataForInfiniti;
+        allPartsArray = toyotaNPN;
         break;
       case "Subaru":
-        allPartsArray = allDataForInfiniti;
+        allPartsArray = toyotaNPN;
         break;
       case "Infiniti":
-        allPartsArray = infinitiNPN;
+        allPartsArray = toyotaNPN;
         break;
       // Add cases for other categories as needed
       default:
@@ -90,10 +92,13 @@ const Chassis = ({ params }) => {
   const arrayData = filterAllPartsData.filter(
     (item) => item.Frames === lastCat
   );
-  // console.log("array data is : ", arrayData);
 
-  const srcArray = arrayData.map((item) => item.ListOfHrefs).flat();
-  // console.log("ListOfHrefs is : ", srcArray);
+  const mainArrayData = arrayData.slice(0,1)
+  // console.log("array data is : ", arrayData);
+  
+
+  const srcArray = mainArrayData.map((item) => item.ListOfHrefs).flat();
+  console.log("ListOfHrefs is : ", srcArray);
 
   // returning href function
   const gettingHref = (partsGroup, srcArray) => {
@@ -101,13 +106,13 @@ const Chassis = ({ params }) => {
       const firstPartWord = item.desc.split(" ")[1];
       return firstPartWord;
     });
-    // console.log("Parts First Words are : ", partsFirst);
+    console.log("Parts First Words are : ", partsFirst);
 
     const srcArrayFirst = srcArray.map((item) => {
       const firstSrcArrayWord = item.h1Tag.split(" ")[1];
       return firstSrcArrayWord;
     });
-    // console.log("srcArrayFirst First Words are : ", srcArrayFirst);
+    console.log("srcArrayFirst First Words are : ", srcArrayFirst);
 
     if (partsFirst === srcArrayFirst) return h1Tag;
   };
@@ -126,7 +131,7 @@ const Chassis = ({ params }) => {
       // return data.h1Tag;
       return letter === descItem;
     });
-    // console.log("h1Tag is : ", gettingLetter ? gettingLetter.h1Tag : null);
+    console.log("h1Tag is : ", gettingLetter ? gettingLetter.h1Tag : null);
 
     return gettingLetter ? gettingLetter.h1Tag : null;
   };

@@ -1090,7 +1090,7 @@ export const suzukiNPN = [
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Aerio 1 generation, restyling 11.2003 - 03.2007`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -2238,7 +2238,7 @@ export const suzukiNPN = [
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Aerio 1 generation 01.2001 - 10.2003`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `HatchbackSedan`,
@@ -3290,7 +3290,7 @@ export const suzukiNPN = [
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto 6 generation 09.2004 - 11.2009`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -4150,7 +4150,7 @@ export const suzukiNPN = [
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto 5 generation, restyling 12.2000 - 08.2004`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `HatchbackHatchback, 3dr`,
@@ -4904,7 +4904,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto 5 generation 10.1998 - 11.2000`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -5692,7 +5692,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto 4 generation, restyling 04.1997 - 09.1998`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -6543,7 +6543,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto 4 generation 11.1994 - 03.1997`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -7515,7 +7515,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto 3 generation, restyling 03.1990 - 10.1994`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -8267,7 +8267,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto 3 generation 09.1988 - 02.1990`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -9245,7 +9245,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Alto Lapin 1 generation 01.2002 - 10.2008`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `Hatchback`,
@@ -10158,7 +10158,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Cappuccino 1 generation 10.1991 - 12.1997`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -11262,7 +11262,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Carry Truck 11 generation, restyling 05.2002 - 08.2013`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `Truck`,
@@ -12408,7 +12408,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Carry Truck 11 generation 01.1999 - 04.2002`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `Truck`,
@@ -13465,7 +13465,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Cervo 5 generation 11.2006 - 12.2009`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -14523,7 +14523,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Cervo 4 generation, restyling 10.1995 - 09.1998`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -15464,7 +15464,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Cervo 4 generation 02.1990 - 09.1995`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: ``,
@@ -16676,7 +16676,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Cultus 3 generation 01.1995 - 10.2001`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `WagonSedanHatchback, 3dr`,
@@ -17714,7 +17714,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Cultus 2 generation, restyling 07.1991 - 05.1998`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `SedanOpenHatchback, 3drHatchback`,
@@ -18837,7 +18837,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Cultus 2 generation 09.1988 - 06.1991`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `HatchbackSedanHatchback, 3dr`,
@@ -19993,7 +19993,7 @@ No description`,
     ],
   },
     { H1Tag: ` Best-selling parts for Suzuki Escudo 3 generation 05.2005 - 05.2008`, cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `SUVSUV, 3dr`,
@@ -20981,13 +20981,13 @@ No description`,
     ],
   },
     { H1Tag: "", cards: [
-    cards: [],
+    ]
   },
     { H1Tag: "", cards: [
-    cards: [],
+    ]
   },
     { H1Tag: "", cards: [
-    cards: [],
+    ]
   },
   ],
   TypesDiv: `SUVSUV, 3dr`,
