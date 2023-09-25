@@ -5,9 +5,11 @@ import { Outfit } from "next/font/google";
 import HeadBar from "@/components/HeadBar";
 import Footer from "@/components/Footer";
 import RecoilWrapper from "@/components/RecoilWrapper";
+import Provider from "@/components/Provider";
 
 // other imports
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -20,12 +22,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <RecoilWrapper>
-          <Toaster />
-          <HeadBar />
-          {children}
-          <Footer />
-        </RecoilWrapper>
+        <Provider>
+          <RecoilWrapper>
+            <Toaster />
+            <HeadBar />
+            {children}
+            <Footer />
+          </RecoilWrapper>
+        </Provider>
       </body>
     </html>
   );

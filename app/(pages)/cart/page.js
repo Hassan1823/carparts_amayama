@@ -1,18 +1,17 @@
 "use client";
-
 import React, { useMemo } from "react";
 
 // other imports
 import { useRecoilState } from "recoil";
-
+import { useSession } from 'next-auth/react';
 // local imports
 import { cartState } from "@/atoms/cartState";
-// import axios from "axios";
+import toast from "react-hot-toast";
+// import { checkout } from "@/app/checkout";
 
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
 
 const Cart = () => {
+  const { data: session } = useSession();
   const [cartItem, setCartItem] = useRecoilState(cartState);
 
   const removeItemFromCart = (index) => {
@@ -50,9 +49,53 @@ const Cart = () => {
   }, [cartItem]);
 
   // Console log the total sum value
-  console.log(`Total Sum Value: ${totalSum}`);
+  // console.log(`Total Sum Value: ${totalSum}`);
 
   // stripe checkout function
+
+  const handleCheckOut = async ()=>{
+    if(!session){
+      await toast(`Please Sign-in First`, {
+        duration: 1000,
+        position: "center-top",
+
+        // Custom Icon
+        icon: "😌",
+
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+
+        // Aria
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      });
+    }else{
+      await toast(`Thank You For Purchasing`, {
+        duration: 1000,
+        position: "center-top",
+
+        // Custom Icon
+        icon: "❤️",
+
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+
+        // Aria
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      });
+    }
+  }
 
   return (
     <div className="w-full min-h-screen h-auto">
@@ -121,8 +164,17 @@ const Cart = () => {
         <div className="w-full h-auto flex justify-center items-center my-10">
           <button
             className="bg-yellow-500 text-white lg:px-6 px-  lg:py-3 py-2 rounded-lg hover:bg-yellow-600 hover:scale-110 hover:duration-300 "
-
-            // onClick={handleCheckout}
+            // onClick={() => {
+            //   checkout({
+            //     lineItems: [
+            //       {
+            //         price: `${totalSum.toFixed(2)}`,
+            //         quantity: 1,
+            //       },
+            //     ],
+            //   });
+            // }}
+            onClick={handleCheckOut}
           >
             Checkout
           </button>

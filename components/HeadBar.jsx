@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import React from "react";
@@ -6,11 +6,22 @@ import React from "react";
 
 // other imports
 import { useRecoilState } from "recoil";
+import { useSession, signIn, signOut } from "next-auth/react";
 // local imports
 import { cartState } from "@/atoms/cartState";
 
 const HeadBar = () => {
+  const { data: session } = useSession();
+  // console.log(session ? session : 'no session data ');
   const [cartItem] = useRecoilState(cartState);
+
+  const handleSignInOut = async () => {
+    if (!session) {
+      await signIn("google");
+    } else {
+      await signOut();
+    }
+  };
 
   return (
     <div className="w-full py-4">
@@ -67,6 +78,7 @@ const HeadBar = () => {
           </Link>
         </div>
         <div className="navbar-end mr-4 flex justify-end items-center md:gap-8 gap-2">
+          {/* cart */}
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <div className="indicator">
@@ -84,7 +96,9 @@ const HeadBar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">{cartItem.length}</span>
+                <span className="badge badge-sm indicator-item">
+                  {cartItem.length}
+                </span>
               </div>
             </label>
             <div
@@ -92,7 +106,9 @@ const HeadBar = () => {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg text-center">{cartItem.length} Items</span>
+                <span className="font-bold text-lg text-center">
+                  {cartItem.length} Items
+                </span>
                 {/* <span className="text-yellow-500">Subtotal: $999</span> */}
                 <Link href="/cart">
                   <div className="card-actions">
@@ -101,6 +117,36 @@ const HeadBar = () => {
                     </button>
                   </div>
                 </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* sign in and out */}
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <img
+                // src="/dp.jpg"
+                src={`${session ? session.user.image : '/dp.jpg'}`}
+                alt="dp"
+                className="object-contain rounded-full w-9 h-9"
+              />
+            </label>
+            <div
+              tabIndex={0}
+              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+            >
+              <div className="card-body">
+                {/* <span className="text-yellow-500">Subtotal: $999</span> */}
+                {/* <Link href="/cart"> */}
+                <div className="card-actions">
+                  <button
+                    className="btn text-white btn-block bg-yellow-500"
+                    onClick={handleSignInOut}
+                  >
+                    {!session ? "Sign In with Google" : "Sign Out"}
+                  </button>
+                </div>
+                {/* </Link> */}
               </div>
             </div>
           </div>
