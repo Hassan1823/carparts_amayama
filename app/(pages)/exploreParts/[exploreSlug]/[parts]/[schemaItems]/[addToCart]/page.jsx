@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 // local imports
 import { useRecoilState } from "recoil";
-
+import { useSession } from "next-auth/react";
 // local imports
 import { toyotaNPN } from "@/public/utils/toyotaNPN";
 import { cartState } from "@/atoms/cartState";
@@ -13,6 +13,17 @@ import toast from "react-hot-toast";
 // import { infinitiNPN } from "@/public/utils/allInfinitiData";
 
 const AddToCart = ({ params }) => {
+  const { data: session } = useSession();
+  const userData = () => {
+    if (session) {
+      return session.user;
+    } else {
+      return [];
+    }
+  };
+  const user = userData();
+  console.table(user);
+
   // cart items
   const [cartItem, setCartItem] = useRecoilState(cartState);
   const title = decodeURIComponent(params.exploreSlug).split(" ")[0];
@@ -112,7 +123,12 @@ const AddToCart = ({ params }) => {
   // console.table("combined Array is  : ", combinedArray);
 
   // const handleAddToCart = () => {};
+
   const addItemToCart = (data) => {
+    const currentItem = gettingCurrentItem(data);
+    // console.table(currentItem);
+
+    sendDataToServer(currentItem);
     // Check if the item is already in the cart by comparing its data with existing cart items
     const isItemAlreadyInCart = cartItem.some((item) => {
       // Compare each item in the cart with the new item
@@ -121,7 +137,7 @@ const AddToCart = ({ params }) => {
 
     // If the item is not already in the cart, add it
     if (!isItemAlreadyInCart) {
-      console.log("Adding item to cart:", data);
+      // console.log("Adding item to cart:", data);
       setCartItem((prevState) => [...prevState, data]);
       toast(`${data[0]} Added to Cart`, {
         duration: 1000,
@@ -162,37 +178,57 @@ const AddToCart = ({ params }) => {
           "aria-live": "polite",
         },
       });
-      console.log("Item is already in the cart.");
+      // console.log("Item is already in the cart.");
     }
+  };
+  // getting the current item
+  const gettingCurrentItem = (data) => {
+    // console.table("Current Item:", data);
+    const productName = data[0];
+    // console.table("Names:", names);
+    const number = parseInt(data[1]);
+    // console.table("Numbers:", numbers);
+    const pricesDigit = calculateTwentyPercent(data[2]);
+    const pricesFunction = () => {
+      const priceString = pricesDigit.replace(",", ".");
+      const numericPart = priceString.match(/[\d.]+/);
+      return numericPart ? parseFloat(numericPart[0]) : 0;
+    };
+
+    const price = pricesFunction();
+
+    // console.table("Prices:", prices);
+
+    return { productName, number, price };
   };
 
   // Calculate the 20% values before rendering
   const calculateTwentyPercent = (value) => {
     const floatValue = parseFloat(value.replace(/,/g, ""));
     if (isNaN(floatValue)) {
-      console.log(`Original Value: ${value}`);
+      // console.log(`Original Value: ${value}`);
       return value; // If not a valid float, return the original value
     } else {
       const twentyPercent = floatValue * 0.2;
       const sumValue = floatValue + twentyPercent;
 
-      console.log(`Original Value: ${value}`);
-      console.log(
-        `20% Value: ${new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }).format(twentyPercent)}`
-      );
-      console.log(
-        `Sum Value: ${new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }).format(sumValue)}`
-      );
+      // console.log(`Original Value: ${value}`);
+      // console.log(
+      //   `20% Value: ${new Intl.NumberFormat("en-US", {
+      //     style: "currency",
+      //     currency: "USD",
+      //     minimumFractionDigits: 2,
+      //     maximumFractionDigits: 2,
+      //   }).format(twentyPercent)}`
+      // );
+      // console.log(
+      //   `Sum Value: ${new Intl.NumberFormat("en-US", {
+      //     style: "currency",
+      //     currency: "USD",
+      //     minimumFractionDigits: 2,
+      //     maximumFractionDigits: 2,
+      //   }).format(sumValue)}`
+      // );
 
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -200,6 +236,49 @@ const AddToCart = ({ params }) => {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       }).format(sumValue);
+    }
+  };
+  const email = user.email;
+  const name = user.name;
+  const image = user.image;
+
+  console.table(email, name, image);
+
+  // sending data to database
+  const sendDataToServer = async (currentItem) => {
+    const { productName, number, price } = currentItem;
+
+    // Assuming 'image' is a URL to the image
+    const requestBody = {
+      email,
+      name,
+      image, // Assuming 'image' is the URL
+      productName,
+      number,
+      price,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          alert("New Product Added!");
+        }
+      } else {
+        // Handle errors here
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      // Handle network errors here
+      console.error("Network Error:", error);
     }
   };
 
@@ -261,7 +340,7 @@ const AddToCart = ({ params }) => {
                   }
                 >
                   <th>{index + 1}</th>
-                  
+
                   {combinedArray.map((row, rowIndex) => (
                     <td key={rowIndex}>
                       {rowIndex === 2 &&

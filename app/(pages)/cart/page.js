@@ -3,12 +3,11 @@ import React, { useMemo } from "react";
 
 // other imports
 import { useRecoilState } from "recoil";
-import { useSession } from 'next-auth/react';
+import { useSession } from "next-auth/react";
 // local imports
 import { cartState } from "@/atoms/cartState";
 import toast from "react-hot-toast";
 // import { checkout } from "@/app/checkout";
-
 
 const Cart = () => {
   const { data: session } = useSession();
@@ -48,14 +47,31 @@ const Cart = () => {
     }, 0);
   }, [cartItem]);
 
+  const splitCartItem = useMemo(() => {
+    const names = cartItem.map((item) => item[0]);
+    const numbers = cartItem.map((item) => parseInt(item[1]));
+    const pricesArray = cartItem.map((item) => calculateTwentyPercent(item[2]));
+    const prices = pricesArray.map((data) => {
+      // Extract the numeric part of the price string
+      const priceString = data.sum.replace(",", ".");
+      const numericPart = priceString.match(/[\d.]+/);
+
+      // Use parseFloat to parse as double, or return 0 if no numeric part found
+      return numericPart ? parseFloat(numericPart[0]) : 0;
+    });
+
+    return { names, numbers, prices };
+  }, [cartItem]);
+
+  console.table("Cart Data is :", splitCartItem ? splitCartItem : "Empty");
+
   // Console log the total sum value
   // console.log(`Total Sum Value: ${totalSum}`);
+  // console.log(`Cart Items: ${cartItem}`);
 
-  // stripe checkout function
-
-  const handleCheckOut = async ()=>{
-    if(!session){
-      await toast(`Please Sign-in First`, {
+  const handleCheckOut = () => {
+    if (!session) {
+      toast(`Please Sign-in First`, {
         duration: 1000,
         position: "center-top",
 
@@ -74,8 +90,8 @@ const Cart = () => {
           "aria-live": "polite",
         },
       });
-    }else{
-      await toast(`Thank You For Purchasing`, {
+    } else {
+      toast(`Thank You For Purchasing`, {
         duration: 1000,
         position: "center-top",
 
@@ -95,7 +111,9 @@ const Cart = () => {
         },
       });
     }
-  }
+  };
+
+  // console.table("cart items are :", cartItem ? cartItem : "Empty");
 
   return (
     <div className="w-full min-h-screen h-auto">
@@ -114,7 +132,8 @@ const Cart = () => {
                 <tr className="w-1/6 px-4 py-2 text-center">
                   <th>ID</th>
                   <th>Names</th>
-                  <th>Prices</th>
+                  <th>Numbers</th>
+                  <th>Prices</th> {/* New column for action */}
                   <th>Action</th> {/* New column for action */}
                 </tr>
               </thead>
@@ -130,9 +149,9 @@ const Cart = () => {
                         const { original, twentyPercent, sum } =
                           calculateTwentyPercent(data);
                         // Console log the values
-                        console.log(`Original Value: ${original}`);
-                        console.log(`20% Value: ${twentyPercent}`);
-                        console.log(`Sum Value: ${sum}`);
+                        // console.log(`Original Value: ${original}`);
+                        // console.log(`20% Value: ${twentyPercent}`);
+                        // console.log(`Sum Value: ${sum}`);
                         return <td key={dataIndex}>{`${sum}`}</td>;
                       } else {
                         return <td key={dataIndex}>{data}</td>;
@@ -164,16 +183,6 @@ const Cart = () => {
         <div className="w-full h-auto flex justify-center items-center my-10">
           <button
             className="bg-yellow-500 text-white lg:px-6 px-  lg:py-3 py-2 rounded-lg hover:bg-yellow-600 hover:scale-110 hover:duration-300 "
-            // onClick={() => {
-            //   checkout({
-            //     lineItems: [
-            //       {
-            //         price: `${totalSum.toFixed(2)}`,
-            //         quantity: 1,
-            //       },
-            //     ],
-            //   });
-            // }}
             onClick={handleCheckOut}
           >
             Checkout
