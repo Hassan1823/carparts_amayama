@@ -17,7 +17,7 @@ const HeadBar = () => {
 
   const handleSignInOut = async () => {
     if (!session) {
-      await signIn("google");
+      signIn("google");
     } else {
       await signOut();
     }
