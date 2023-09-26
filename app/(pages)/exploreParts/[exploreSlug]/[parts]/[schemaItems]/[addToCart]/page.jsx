@@ -18,7 +18,7 @@ const AddToCart = ({ params }) => {
     if (session) {
       return session.user;
     } else {
-      return [];
+      return "Logged Out";
     }
   };
   const user = userData();
@@ -128,7 +128,6 @@ const AddToCart = ({ params }) => {
     const currentItem = gettingCurrentItem(data);
     // console.table(currentItem);
 
-    sendDataToServer(currentItem);
     // Check if the item is already in the cart by comparing its data with existing cart items
     const isItemAlreadyInCart = cartItem.some((item) => {
       // Compare each item in the cart with the new item
@@ -138,26 +137,31 @@ const AddToCart = ({ params }) => {
     // If the item is not already in the cart, add it
     if (!isItemAlreadyInCart) {
       // console.log("Adding item to cart:", data);
-      setCartItem((prevState) => [...prevState, data]);
-      toast(`${data[0]} Added to Cart`, {
-        duration: 1000,
-        position: "center-top",
+      if (session) {
+        setCartItem((prevState) => [...prevState, data]);
 
-        // Custom Icon
-        icon: "❤️",
+        sendDataToServer(currentItem);
+      } else {
+        toast(`Sign-In required`, {
+          duration: 1000,
+          position: "center-top",
 
-        // Change colors of success/error/loading icon
-        iconTheme: {
-          primary: "#000",
-          secondary: "#fff",
-        },
+          // Custom Icon
+          icon: "❤️",
 
-        // Aria
-        ariaProps: {
-          role: "status",
-          "aria-live": "polite",
-        },
-      });
+          // Change colors of success/error/loading icon
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+
+          // Aria
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
+      }
     } else {
       toast(`This Product is Already in the Cart`, {
         duration: 1000,
@@ -270,7 +274,25 @@ const AddToCart = ({ params }) => {
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
-          alert("New Product Added!");
+          toast(`${productName} Added to Cart`, {
+            duration: 1000,
+            position: "center-top",
+
+            // Custom Icon
+            icon: "❤️",
+
+            // Change colors of success/error/loading icon
+            iconTheme: {
+              primary: "#000",
+              secondary: "#fff",
+            },
+
+            // Aria
+            ariaProps: {
+              role: "status",
+              "aria-live": "polite",
+            },
+          });
         }
       } else {
         // Handle errors here

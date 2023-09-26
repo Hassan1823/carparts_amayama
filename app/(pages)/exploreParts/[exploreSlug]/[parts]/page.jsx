@@ -94,7 +94,7 @@ const Chassis = ({ params }) => {
   );
 
   const mainArrayData = arrayData.slice(0,1)
-  console.log("array data is : ", arrayData);
+  // console.log("array data is : ", arrayData);
   
 
   const srcArray = mainArrayData.map((item) => item.ListOfHrefs).flat();

@@ -24,7 +24,7 @@ const Parts = ({ params }) => {
     /%20/g,
     " "
   );
-  console.log(params);
+  // console.log(params);
 
   const subSubCateg =
     decodeURIComponent(params.parts).replace(/%20/g, " ") + " ";
@@ -77,7 +77,7 @@ const Parts = ({ params }) => {
     return allPartsArray;
   }, [mainCategory]);
 
-  console.log("Main Data is :", filterAllPartsData);
+  // console.log("Main Data is :", filterAllPartsData);
   const arrayData = filterAllPartsData.filter(
     (item) => item.Frames === lastCat
   );
@@ -87,8 +87,8 @@ const Parts = ({ params }) => {
   // console.log("ListOfHrefs is : ", srcArray);
   
   const cardsData = srcArray.filter((item) => item.h1Tag === paramsPath);
-  console.log("Cards Data is : ", cardsData);
-  console.log("paramsPath are: '", paramsPath, "'");
+  // console.log("Cards Data is : ", cardsData);
+  // console.log("paramsPath are: '", paramsPath, "'");
 
   // const cards = cardsData.map((item) => item.cards);
 

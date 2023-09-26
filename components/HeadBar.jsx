@@ -1,19 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 // import { UserButton } from "@clerk/nextjs";
 
 // other imports
 import { useRecoilState } from "recoil";
 import { useSession, signIn, signOut } from "next-auth/react";
 // local imports
-import { cartState } from "@/atoms/cartState";
+// import { cartState } from "@/atoms/cartState";
 
 const HeadBar = () => {
   const { data: session } = useSession();
   // console.log(session ? session : 'no session data ');
-  const [cartItem] = useRecoilState(cartState);
+  // const [cartItem] = useRecoilState(cartState);
+  const [cartLength, setCartLength] = useState(0);
+
+  // getting user email
+  // const email = session.user.email;
+  // console.log("Email : ", email);
+
+  const email = session && session.user && session.user.email;
+  // console.log("Email : ", email);
 
   const handleSignInOut = async () => {
     if (!session) {
@@ -22,6 +30,37 @@ const HeadBar = () => {
       await signOut();
     }
   };
+
+  // getting cart data from DB
+  const getProductData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/products/${email}`,
+        {
+          cache: "no-store",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+
+      const productData = await response.json();
+
+      if (productData.success === true) {
+        const results = await productData.result;
+        setCartLength(results.length);
+      } else {
+        console.log("No Data Found From DB!");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getProductData();
+  }, [session]);
 
   return (
     <div className="w-full py-4">
@@ -97,7 +136,7 @@ const HeadBar = () => {
                   />
                 </svg>
                 <span className="badge badge-sm indicator-item">
-                  {cartItem.length}
+                  {cartLength ? cartLength : 0}
                 </span>
               </div>
             </label>
@@ -107,7 +146,7 @@ const HeadBar = () => {
             >
               <div className="card-body">
                 <span className="font-bold text-lg text-center">
-                  {cartItem.length} Items
+                  {cartLength ? cartLength : 0} Items
                 </span>
                 {/* <span className="text-yellow-500">Subtotal: $999</span> */}
                 <Link href="/cart">
@@ -126,7 +165,7 @@ const HeadBar = () => {
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <img
                 // src="/dp.jpg"
-                src={`${session ? session.user.image : '/dp.jpg'}`}
+                src={`${session ? session.user.image : "/dp.jpg"}`}
                 alt="dp"
                 className="object-contain rounded-full w-9 h-9"
               />
