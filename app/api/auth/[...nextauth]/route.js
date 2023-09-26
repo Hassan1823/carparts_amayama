@@ -5,6 +5,9 @@ import GoogleProvider from "next-auth/providers/google";
 import { connectDB } from "@/db/db";
 import User from "@/models/user";
 
+// const crypto = require('crypto');
+// const secret = crypto.randomBytes(32).toString('hex');
+// console.log(secret);
 
 const handler = NextAuth({
   providers: [
@@ -13,6 +16,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }) {
         const sessionUser = await User.findOne({email: session.user.email})
