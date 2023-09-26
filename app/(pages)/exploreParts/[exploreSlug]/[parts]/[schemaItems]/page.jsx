@@ -5,15 +5,6 @@ import Link from "next/link";
 import React, { useMemo } from "react";
 import { usePathname } from "next/navigation";
 
-// local imports
-// import {
-//   hondaAllPartsData,
-//   allHondaDataArray,
-// } from "@/public/utils/allPartsData";
-// import {
-//   allDataForInfiniti,
-//   infinitiNPN,
-// } from "@/public/utils/allInfinitiData";
 import { toyotaNPN } from "@/public/utils/toyotaNPN";
 
 
@@ -24,7 +15,6 @@ const Parts = ({ params }) => {
     /%20/g,
     " "
   );
-  // console.log(params);
 
   const subSubCateg =
     decodeURIComponent(params.parts).replace(/%20/g, " ") + " ";
@@ -33,10 +23,7 @@ const Parts = ({ params }) => {
   const restOfElements = root.slice(1);
   const subCategory = restOfElements.join(" ");
 
-  // console.log("Main Category is : ", mainCategory);
-  // console.log("Sub Category is : ", subCategory);
-  // console.log("Sub Sub Category is : ", subSubCateg);
-  // console.log("last Params are :", paramsPath);
+ 
 
   const lastCat = subSubCateg;
 
@@ -77,20 +64,13 @@ const Parts = ({ params }) => {
     return allPartsArray;
   }, [mainCategory]);
 
-  // console.log("Main Data is :", filterAllPartsData);
   const arrayData = filterAllPartsData.filter(
     (item) => item.Frames === lastCat
   );
-  // console.log("last array data is : ", arrayData);
 
   const srcArray = arrayData.map((item) => item.ListOfHrefs).flat();
-  // console.log("ListOfHrefs is : ", srcArray);
   
   const cardsData = srcArray.filter((item) => item.h1Tag === paramsPath);
-  // console.log("Cards Data is : ", cardsData);
-  // console.log("paramsPath are: '", paramsPath, "'");
-
-  // const cards = cardsData.map((item) => item.cards);
 
   return (
     <>

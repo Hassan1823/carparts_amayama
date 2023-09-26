@@ -32,14 +32,12 @@ const ExploreParts = () => {
   const handleManufacturerChange = (e) => {
     setSelectManufacturer(e.target.value); // Update the selectedManufacturer state with the selected option
   };
-  // console.log("manufacturer :", selectManufacture);
 
   // handle yares
   const handleYearChange = (e) => {
     setSelectYear(e.target.value); // Update the selectedYears state with the selected option
   };
 
-  // console.log("years :", selectYear);
 
   // Function to check and log tags
   function findTags(categoriesData, selectManufacture) {
@@ -51,7 +49,6 @@ const ExploreParts = () => {
     }
     return matchingTags;
   }
-  // console.log("tags are : ", tagsArray);
 
   // finding tags by years
   const filteringArrayFunction = useMemo(() => {
@@ -159,13 +156,6 @@ const ExploreParts = () => {
       </div>
     )
   );
-
-  // console.log("Manufacturers are :", selectManufacture);
-
-  // useEffect(() => {
-  //   filteringArrayFunction;
-  //   console.table("Tags are :", filteringArrayFunction);
-  // }, [filteringArrayFunction]);
 
   return (
     <div className="w-full min-h-screen h-auto">

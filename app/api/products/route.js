@@ -24,12 +24,12 @@ export async function POST(req, res) {
   const payload = await req.json();
   try {
     await connectDB();
-    console.log("Received payload:", payload);
+    // console.log("Received payload:", payload);
     let product = new Product(payload);
     const result = await product.save();
     return NextResponse.json({ result, success: true });
   } catch (error) {
-    console.log("Porduct POST Error :", error);
+    console.log("Product POST Error :", error);
     return NextResponse.json(
       { error: "Failed to create product", success: false },
       { status: 500 }

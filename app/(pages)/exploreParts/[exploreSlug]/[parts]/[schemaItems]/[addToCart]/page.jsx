@@ -22,7 +22,7 @@ const AddToCart = ({ params }) => {
     }
   };
   const user = userData();
-  console.table(user);
+  // console.table(user);
 
   // cart items
   const [cartItem, setCartItem] = useRecoilState(cartState);
@@ -32,7 +32,6 @@ const AddToCart = ({ params }) => {
   const ParentTitle = decodeURIComponent(params.exploreSlug);
   // h1Tag
   const h1Tag = decodeURIComponent(params.schemaItems);
-  // console.log("H1 Tag : '", h1Tag, "'");
 
   const Alt = decodeURIComponent(params.addToCart);
 
@@ -73,12 +72,10 @@ const AddToCart = ({ params }) => {
 
     // filtering to one array
 
-    // console.log("Main array is : ", mainArray);
     const oneArray = mainArray.filter(
       (item) => item.Frames === Frames || item.ParentTitle === ParentTitle
     );
 
-    // console.log("One Array is :", oneArray);
 
     // list of hrefs
     const listOfHref = oneArray.map((item) => item.ListOfHrefs);
@@ -88,16 +85,13 @@ const AddToCart = ({ params }) => {
     const h1TagArray = listOfHref.map((item) =>
       item.filter((data) => data.h1Tag === h1Tag)
     );
-    // console.log("Final array is ",h1TagArray);
 
     const cardsArray = h1TagArray.map((item) => item.map((data) => data.cards));
-    // console.log("cards array is ", cardsArray);
 
     // filtering cards according to parts
     const partsSigleArray = cardsArray.map((item) =>
       item.map((data) => data.filter((items) => items.Alt === Alt))
     );
-    // console.log("Parts Single Array is :", partsSigleArray);
     const flattenedArray = partsSigleArray.flat(3);
 
     return flattenedArray;
@@ -136,7 +130,6 @@ const AddToCart = ({ params }) => {
 
     // If the item is not already in the cart, add it
     if (!isItemAlreadyInCart) {
-      // console.log("Adding item to cart:", data);
       if (session) {
         setCartItem((prevState) => [...prevState, data]);
 
@@ -182,7 +175,6 @@ const AddToCart = ({ params }) => {
           "aria-live": "polite",
         },
       });
-      // console.log("Item is already in the cart.");
     }
   };
   // getting the current item
@@ -210,29 +202,10 @@ const AddToCart = ({ params }) => {
   const calculateTwentyPercent = (value) => {
     const floatValue = parseFloat(value.replace(/,/g, ""));
     if (isNaN(floatValue)) {
-      // console.log(`Original Value: ${value}`);
       return value; // If not a valid float, return the original value
     } else {
       const twentyPercent = floatValue * 0.2;
       const sumValue = floatValue + twentyPercent;
-
-      // console.log(`Original Value: ${value}`);
-      // console.log(
-      //   `20% Value: ${new Intl.NumberFormat("en-US", {
-      //     style: "currency",
-      //     currency: "USD",
-      //     minimumFractionDigits: 2,
-      //     maximumFractionDigits: 2,
-      //   }).format(twentyPercent)}`
-      // );
-      // console.log(
-      //   `Sum Value: ${new Intl.NumberFormat("en-US", {
-      //     style: "currency",
-      //     currency: "USD",
-      //     minimumFractionDigits: 2,
-      //     maximumFractionDigits: 2,
-      //   }).format(sumValue)}`
-      // );
 
       return new Intl.NumberFormat("en-US", {
         style: "currency",

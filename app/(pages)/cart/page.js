@@ -16,79 +16,42 @@ const Cart = () => {
   const [cartItem, setCartItem] = useRecoilState(cartState);
   const [cartData, setCartData] = useState([]);
 
-
   // getting user email
   const email = session && session.user && session.user.email;
 
-  // console.log("Email : ", email);
 
-  const removeItemFromCart = (index) => {
-    const updatedCart = [...cartItem];
-    updatedCart.splice(index, 1);
-    setCartItem(updatedCart);
-  };
-
-  // Function to calculate 20% of a value
-  const calculateTwentyPercent = (value) => {
-    const floatValue = parseFloat(value.replace(/,/g, ""));
-    if (isNaN(floatValue)) {
-      return {
-        original: value,
-        twentyPercent: value,
-        sum: value,
-      };
-    } else {
-      const twentyPercent = floatValue * 0.2;
-      const sum = floatValue + twentyPercent;
-      return {
-        original: value,
-        twentyPercent: `$ ${twentyPercent.toFixed(2)}`,
-        sum: `$ ${sum.toFixed(2)}`,
-      };
-    }
-  };
-
-  const handleCheckOut = () => {
-    if (!session) {
-      toast(`Please Sign-in First`, {
-        duration: 1000,
-        position: "center-top",
-
-        // Custom Icon
-        icon: "😌",
-
-        // Change colors of success/error/loading icon
-        iconTheme: {
-          primary: "#000",
-          secondary: "#fff",
-        },
-
-        // Aria
-        ariaProps: {
-          role: "status",
-          "aria-live": "polite",
-        },
+  const handleCheckOut = async () => {
+    try {
+      let data = await fetch(`http://localhost:3000/api/products/${email}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          orderStatus: true,
+        }),
       });
-    } else {
-      toast(`Thank You For Purchasing`, {
-        duration: 1000,
-        position: "center-top",
+      data = await data.json();
+      if (data.result) {
+        toast(`Paid !!!`, {
+          duration: 1000,
+          position: "center-top",
 
-        // Custom Icon
-        icon: "❤️",
+          // Custom Icon
+          icon: "😌",
 
-        // Change colors of success/error/loading icon
-        iconTheme: {
-          primary: "#000",
-          secondary: "#fff",
-        },
+          // Change colors of success/error/loading icon
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
 
-        // Aria
-        ariaProps: {
-          role: "status",
-          "aria-live": "polite",
-        },
-      });
+          // Aria
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
+      }
+    } catch (error) {
+      console.log("Error in Checkout");
     }
   };
 
@@ -139,7 +102,6 @@ const Cart = () => {
   };
 
   const TotalSum = calculateTotalPrice();
-  // console.log("Totoal Price is : ", TotalSum);
 
   // delete record
   const deleteRecord = async (id) => {
@@ -165,7 +127,7 @@ const Cart = () => {
             "aria-live": "polite",
           },
         });
-        window.location.reload(); 
+        window.location.reload();
       }
     } catch (error) {
       toast(`Something went wrong. `, {
@@ -249,11 +211,11 @@ const Cart = () => {
         )}
       </div>
 
-      {session && (
+      {cartData.length !== 0 && (
         <div className="w-full h-auto flex justify-center items-center my-10">
           <button
             className="bg-yellow-500 text-white lg:px-6 px-3 lg:py-3 py-2 rounded-lg hover:bg-yellow-600 hover:scale-110 hover:duration-300 "
-            onClick={handleCheckOut}
+            onClick={() => handleCheckOut()}
           >
             Checkout
           </button>

@@ -12,16 +12,11 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 const HeadBar = () => {
   const { data: session } = useSession();
-  // console.log(session ? session : 'no session data ');
-  // const [cartItem] = useRecoilState(cartState);
+ 
   const [cartLength, setCartLength] = useState(0);
 
-  // getting user email
-  // const email = session.user.email;
-  // console.log("Email : ", email);
-
+ 
   const email = session && session.user && session.user.email;
-  // console.log("Email : ", email);
 
   const handleSignInOut = async () => {
     if (!session) {

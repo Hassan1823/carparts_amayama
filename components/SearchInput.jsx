@@ -11,14 +11,12 @@ function SearchInput() {
   const handleManufacturerChange = (e) => {
     setSelectManufacturer(e.target.value); // Update the selectedManufacturer state with the selected option
   };
-  // console.log("manufacturer :", selectManufacture);
 
   // handle yares
   const handleYearChange = (e) => {
     setSelectYear(e.target.value); // Update the selectedYears state with the selected option
   };
 
-  // console.log("years :", selectYear);
 
   return (
     <div className="w-full h-auto">

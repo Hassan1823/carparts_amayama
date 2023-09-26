@@ -39,8 +39,7 @@ const ExploreSlug = ({ params }) => {
   const mainCategory = root[0];
   const restOfElements = root.slice(1);
   const subCategory = restOfElements.join(" ");
-  // console.log("main category is : ", mainCateg);
-  // console.log("sub category is : ", subCateg);
+ 
 
   const categ = " " + mainCategory + " " + subCategory + " ";
   const tagsCateg = mainCategory + " " + subCategory;
@@ -94,7 +93,6 @@ const ExploreSlug = ({ params }) => {
     return carArray.filter((data) => data.parentTitle === categ);
   }, [mainCategory, categ]);
 
-  // console.log("Main array data is : ", filteredCarArray);
 
   const filteredCarTags = useMemo(() => {
     let carTags;
@@ -133,7 +131,6 @@ const ExploreSlug = ({ params }) => {
     const filteredArray = carTags
       .filter((data) => data.title === tagsCateg)
       .map((data) => data.markets);
-    // console.log("Main Tagsssss are :", carTags);
     return filteredArray;
   }, [mainCategory, tagsCateg]);
 

@@ -22,7 +22,6 @@ const CarsFilterOptions = ({ selectManufacture, selectYear }) => {
   // const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(true);
 
-  // console.log("INput seacrh value is :", getInputSearch);
 
   const router = useRouter();
   // const pathname = usePathname();
@@ -107,8 +106,6 @@ const CarsFilterOptions = ({ selectManufacture, selectYear }) => {
         const startYear = parseInt(startYearStr.split(".")[1], 10);
         const endYear = parseInt(endYearStr.split(".")[1], 10);
 
-        // console.log("startYear: ", startYear);
-        // console.log("endYear: ", endYear);
 
         // user selected year
         const yearY = selectYear.split("-");
@@ -117,9 +114,7 @@ const CarsFilterOptions = ({ selectManufacture, selectYear }) => {
         );
         const sSYear = parseInt(selectedStartYear, 10);
         const sEYear = parseInt(selectedEndYear, 10);
-        // console.log("sSYear: ", sSYear);
-        // console.log("sEYear: ", sEYear);
-        // console.log("main array data is :", arrayData);
+      
 
         // return the data to array
         if (
@@ -142,7 +137,6 @@ const CarsFilterOptions = ({ selectManufacture, selectYear }) => {
     return splitYearArray;
   }, [selectManufacture, selectYear]);
 
-  // console.log("mainArrayFunction is :", mainArrayFunction);
 
   // button search function
 
@@ -162,16 +156,9 @@ const CarsFilterOptions = ({ selectManufacture, selectYear }) => {
   }
 
   const inputSearch = getInputSearch.toUpperCase();
-  // console.log("Search :", inputSearch);
   const result = searchFrames(inputSearch);
 
-  const searchFunction = () => {
-    if (getInputSearch.length !== 0) {
-      console.log("Button clicked");
-    } else {
-      console.log("Please enter something to search");
-    }
-  };
+ 
 
   const handleNavigae = () => {
     router.push("/exploreParts");
@@ -209,7 +196,7 @@ const CarsFilterOptions = ({ selectManufacture, selectYear }) => {
                 className="input input-bordered placeholder:text-yellow-500 text-yellow-500"
                 onChange={(e) => setGetInputSearch(e.target.value)}
               />
-              <button className="btn btn-square" onClick={searchFunction}>
+              <button className="btn btn-square">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 text-yellow-500"
