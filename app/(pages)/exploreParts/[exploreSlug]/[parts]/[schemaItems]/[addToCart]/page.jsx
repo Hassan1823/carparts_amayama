@@ -27,8 +27,10 @@ const AddToCart = ({ params }) => {
   // cart items
   const [cartItem, setCartItem] = useRecoilState(cartState);
   const title = decodeURIComponent(params.exploreSlug).split(" ")[0];
-  const ParentFrame = decodeURIComponent(params.parts).split(" ")[1];
+  const PFrame = decodeURIComponent(params.parts).split(" ")[1];
+  const ParentFrame = PFrame.split(",")[0];
   const Frames = " " + ParentFrame + " ";
+  // console.log("FRames :",ParentFrame)
   const ParentTitle = decodeURIComponent(params.exploreSlug);
   // h1Tag
   const h1Tag = decodeURIComponent(params.schemaItems);
@@ -76,7 +78,6 @@ const AddToCart = ({ params }) => {
       (item) => item.Frames === Frames || item.ParentTitle === ParentTitle
     );
 
-
     // list of hrefs
     const listOfHref = oneArray.map((item) => item.ListOfHrefs);
 
@@ -93,11 +94,18 @@ const AddToCart = ({ params }) => {
       item.map((data) => data.filter((items) => items.Alt === Alt))
     );
     const flattenedArray = partsSigleArray.flat(3);
+    // console.table("List of flattenedArray is :", flattenedArray.map((item)=>item.Href));
 
     return flattenedArray;
   }, [title]);
 
-  // console.table("Single Array is  : ", getMainData);
+  // getting href for product link
+  const hrefLink = getMainData.map((item) => item.Href);
+  const href = hrefLink[0]
+  // console.table("Href  : ", href);
+
+
+
   const hrefNamesArray = getMainData.map((item) =>
     item.hrefNames ? item.hrefNames : " "
   );
@@ -120,8 +128,6 @@ const AddToCart = ({ params }) => {
 
   const addItemToCart = (data) => {
     const currentItem = gettingCurrentItem(data);
-    // console.table(currentItem);
-
     // Check if the item is already in the cart by comparing its data with existing cart items
     const isItemAlreadyInCart = cartItem.some((item) => {
       // Compare each item in the cart with the new item
@@ -138,9 +144,6 @@ const AddToCart = ({ params }) => {
         toast(`Sign-In required`, {
           duration: 1000,
           position: "center-top",
-
-          // Custom Icon
-          icon: "❤️",
 
           // Change colors of success/error/loading icon
           iconTheme: {
@@ -159,9 +162,6 @@ const AddToCart = ({ params }) => {
       toast(`This Product is Already in the Cart`, {
         duration: 1000,
         position: "center-top",
-
-        // Custom Icon
-        icon: "😌",
 
         // Change colors of success/error/loading icon
         iconTheme: {
@@ -219,7 +219,13 @@ const AddToCart = ({ params }) => {
   const name = user.name;
   const image = user.image;
 
-  console.table(email, name, image);
+  // console.table(email, name, image);
+
+  const mainCategory = ParentTitle;
+  const frame = ParentFrame;
+  const subCategory = h1Tag;
+  const partGroup = Alt;
+  const partLink = href;
 
   // sending data to database
   const sendDataToServer = async (currentItem) => {
@@ -233,6 +239,11 @@ const AddToCart = ({ params }) => {
       productName,
       number,
       price,
+      mainCategory,
+      frame,
+      subCategory,
+      partGroup,
+      partLink
     };
 
     try {
@@ -251,9 +262,6 @@ const AddToCart = ({ params }) => {
             duration: 1000,
             position: "center-top",
 
-            // Custom Icon
-            icon: "❤️",
-
             // Change colors of success/error/loading icon
             iconTheme: {
               primary: "#000",
@@ -270,6 +278,22 @@ const AddToCart = ({ params }) => {
       } else {
         // Handle errors here
         console.error("Error:", response.statusText);
+        toast(`Somethings went wrong.`, {
+          duration: 1000,
+          position: "center-top",
+
+          // Change colors of success/error/loading icon
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+
+          // Aria
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
       }
     } catch (error) {
       // Handle network errors here

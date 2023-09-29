@@ -10,18 +10,41 @@ const ProductSchema = new Schema({
   image: {
     type: String,
   },
-  orderStatus: {
-    type: Boolean,
-    default: false,
+  mainCategory:{
+    type:String,
+  },
+  frame:{
+    type:String,
+  },
+  subCategory:{
+    type:String,
+  },
+  partGroup:{
+    type:String,
+  },
+  partLink:{
+    type:String,
   },
   productName: {
     type: String,
+  },
+  quantity: {
+    type: Number,
+    default: 1,
   },
   number: {
     type: Number,
   },
   price: {
     type: Number,
+  },
+  orderStatus: {
+    type: Boolean,
+    default: false,
+  },
+  time: {
+    type: Date,
+    default: Date.now,
   },
 });
 

@@ -7,11 +7,11 @@ export async function PUT(request, content) {
   try {
     await connectDB();
     const productId = content.params.productid;
-    const filter = { email: productId };
+    const filter = { _id: productId };
     const payload = await request.json();
     // console.table(payload);
 
-    const result = await Product.updateMany(filter, payload);
+    const result = await Product.findOneAndUpdate(filter, payload);
     // const result = []
     console.log("Product is updated");
     return NextResponse.json({ result, success: true });

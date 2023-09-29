@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 // import { UserButton } from "@clerk/nextjs";
 
 // other imports
-import { useRecoilState } from "recoil";
+// import { useRecoilState } from "recoil";
 import { useSession, signIn, signOut } from "next-auth/react";
 // local imports
 // import { cartState } from "@/atoms/cartState";
@@ -80,21 +80,21 @@ const HeadBar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow gap-4 bg-black border rounded-box w-52 text-yellow-500"
+              className="menu menu-sm dropdown-content mt-3 z-[1] px-6 py-5 shadow gap-4 bg-black border w-52 text-yellow-500"
             >
-              <Link href="/">
+              <Link href="/" className="hover:scale-105 duration-200">
                 <li>Home</li>
               </Link>
-              <Link href="/exploreParts">
+              <Link href="/exploreParts" className="hover:scale-105 duration-200">
                 <li>Explore</li>
               </Link>
-              <Link href="/">
+              <Link href="/contactUs" className="hover:scale-105 duration-200">
                 <li>Contact US</li>
               </Link>
-              <Link href="/">
+              <Link href="/calculator" className="hover:scale-105 duration-200">
                 <li>Calculator</li>
               </Link>
-              <Link href="/">
+              <Link href="/" className="hover:scale-105 duration-200">
                 <li>Search By Chassis</li>
               </Link>
             </ul>

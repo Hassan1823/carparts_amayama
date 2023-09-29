@@ -2,8 +2,8 @@ import "./globals.css";
 import { Outfit } from "next/font/google";
 
 // local imports
-import HeadBar from "@/components/HeadBar";
-import Footer from "@/components/Footer";
+// import HeadBar from "@/components/HeadBar";
+// import Footer from "@/components/Footer";
 import RecoilWrapper from "@/components/RecoilWrapper";
 import Provider from "@/components/Provider";
 
@@ -24,9 +24,9 @@ export default function RootLayout({ children }) {
         <Provider>
           <RecoilWrapper>
             <Toaster />
-            <HeadBar />
+            {/* <HeadBar /> */}
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </RecoilWrapper>
         </Provider>
       </body>
