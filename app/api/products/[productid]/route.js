@@ -2,6 +2,9 @@ import { connectDB } from "@/db/db";
 import { NextResponse } from "next/server";
 import Product from "@/models/product";
 
+// export async function generateStaticParams() {
+//   // Your code here
+// }
 // modiffy the data
 export async function PUT(request, content) {
   try {

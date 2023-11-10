@@ -37,12 +37,12 @@ router.push('/exploreParts')
       </div>
       <div>
         <Image
-          src="/hero.png"
+          src="/car.png"
           alt="hero"
           width={400}
           height={500}
           priority
-          className="w-full object-cover align-middle"
+          className="w-full object-fit align-center"
         />
       </div>
     </div>

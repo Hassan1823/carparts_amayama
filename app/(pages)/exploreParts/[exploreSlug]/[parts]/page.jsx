@@ -43,7 +43,7 @@ const Chassis = ({ params }) => {
   const subCategory = restOfElements.join(" ");
 
   const lastCat = subSubCateg;
-
+  console.log("MAin Category is : ",mainCategory)
 
   const filterAllPartsData = useMemo(() => {
     let allPartsArray;
@@ -86,13 +86,11 @@ const Chassis = ({ params }) => {
 
   const headTitle = filterAllPartsData.find((item) => item.Frames === lastCat);
 
-
   const arrayData = filterAllPartsData.filter(
     (item) => item.Frames === lastCat
   );
 
-  const mainArrayData = arrayData.slice(0,1)
-  
+  const mainArrayData = arrayData.slice(0, 1);
 
   const srcArray = mainArrayData.map((item) => item.ListOfHrefs).flat();
 
@@ -126,6 +124,10 @@ const Chassis = ({ params }) => {
 
     return gettingLetter ? gettingLetter.h1Tag : null;
   };
+
+  // getting data from api
+
+  
 
   return (
     <>

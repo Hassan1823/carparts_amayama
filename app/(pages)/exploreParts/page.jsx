@@ -24,6 +24,8 @@ const ExploreParts = () => {
   const tempVariable = selectManufacture;
   const tagsArray = findTags(categoriesData, tempVariable);
 
+  console.log("Main Cat : ", tempVariable);
+
   const router = useRouter();
 
   const pathname = usePathname();
@@ -37,7 +39,6 @@ const ExploreParts = () => {
   const handleYearChange = (e) => {
     setSelectYear(e.target.value); // Update the selectedYears state with the selected option
   };
-
 
   // Function to check and log tags
   function findTags(categoriesData, selectManufacture) {
@@ -156,6 +157,32 @@ const ExploreParts = () => {
       </div>
     )
   );
+ const getInfiniti = async () => {
+    try {
+      const response = await fetch(
+        "https://example-api-production-b834.up.railway.app/api/products",
+        {
+          cache: "no-store",
+        }
+      );
+      if (response.ok) {
+        console.log("Getting Response From the Server");
+        const data = await response.json(); // Parse JSON response
+        const dataArray = data.myData;
+        // const filterArray = dataArray.filter(
+        //   (item) => item.ParentTitle.split(" ")[0] === tempVariable
+        // );
+        console.log("Response is : ", dataArray);
+      } else {
+        console.log("Error From DB");
+      }
+    } catch (error) {
+      console.log("Error from server : ");
+    }
+  };
+
+  getInfiniti();
+ 
 
   return (
     <div className="w-full min-h-screen h-auto">
@@ -193,9 +220,7 @@ const ExploreParts = () => {
                 value={selectManufacture} // Set the selected value of the select element to the state variable
                 onChange={handleManufacturerChange} // Handle the change event
               >
-                <option disabled>
-                  Manufacturer
-                </option>
+                <option disabled>Manufacturer</option>
                 <option>Toyota</option>
                 <option>Lexus</option>
                 <option>Mitsubishi</option>
@@ -228,9 +253,7 @@ const ExploreParts = () => {
                 value={selectYear} // Set the selected value of the select element to the state variable
                 onChange={handleYearChange} // Handle the change event
               >
-                <option disabled>
-                  Years
-                </option>
+                <option disabled>Years</option>
                 <option>2023</option>
                 <option>2022</option>
                 <option>2021</option>
